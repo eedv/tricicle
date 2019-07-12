@@ -16,6 +16,29 @@ module screw() {
 	translate([0, 0, 5])
 	cylinder(r=screw_radius*2, h=base_thikness +2);
 }
+module axleJoint() {
+	difference() {
+		#union() {
+			rotate([0, 45, 0])
+			hull() {
+				sphere(d=mainRod_dia);
+				translate([0, 0, 40])
+				sphere(d=mainRod_dia-5);
+			}
+			hull() {
+				sphere(d=mainRod_dia);
+				translate([-40, 0, 0])
+				sphere(d=mainRod_dia-5);
+			}
+		}
+		rotate([0, 40, 0])
+		cylinder(d=structRod_dia, h=80);
+		rotate([0, 90, 0])
+		translate([0, 0, -70])
+		cylinder(d=structRod_dia, h=120);
+	}
+
+}
 module rearHub() {
 	rotate([15, 0, 0])
 	difference() {
@@ -28,7 +51,7 @@ module rearHub() {
 			difference() {
 				hull() {
 					sphere(d=mainRod_dia);
-					translate([0, 0, 45])
+					translate([0, 0, 40])
 					sphere(d=mainRod_dia - 5);
 				}
 				rotate([90, 0, 0])
@@ -50,7 +73,7 @@ module rearHub() {
 			difference() {
 				hull() {
 					sphere(d=mainRod_dia);
-					translate([0, 0, 45])
+					translate([0, 0, 40])
 					sphere(d=mainRod_dia - 5);
 				}
 				rotate([90, 0, 0])
@@ -110,25 +133,25 @@ module rearAxis() {
 	cylinder(d=wheel_dia, h=wheel_thick);
 }
 module frontHub() {
-	translate([0, 70, 0])
+	translate([0, 50, 0])
 	cylinder(d=structRod_dia, h=350);
-	translate([0, -70, 0])
+	translate([0, -50, 0])
 	cylinder(d=structRod_dia, h=350);
 
-	translate([-structRod_dia/2, -75, 0])
-	cube([structRod_dia, 20, 50])
+	translate([-structRod_dia/2, -50, 0])
+	cube([structRod_dia, 30, 50]);
 
-	mirror()
-	translate([-structRod_dia/2, -75, 0])
-	cube([structRod_dia, 20, 50]);
+
+	translate([-structRod_dia/2, 50-30, 0])
+	cube([structRod_dia, 30, 50]);
 
 	translate([0, 0, 310])
-	cube([structRod_dia + 15, 140 + structRod_dia + 15, 25], center=true);
+	cube([structRod_dia + 15, 100 + structRod_dia + 15, 25], center=true);
 	translate([0, 0, 190])
-	cube([structRod_dia + 15, 140 + structRod_dia + 15, 25], center=true);
+	cube([structRod_dia + 15, 100 + structRod_dia + 15, 25], center=true);
 
 	// Wheel
-	rotate([90, 0, 0])
+	%rotate([90, 0, 0])
 	cylinder(d=100, h=20, center=true);
 
 	// Hub
@@ -176,22 +199,26 @@ module seat() {
 	cylinder(d=structRod_dia, h=150);
 }
 
-/* rotate([90, 0, 0])
+rotate([90, 0, 0])
 {
-	difference() {
-		rearHub();
-
-	}
+	rearHub();
 	rotate([15, 0, 0])
-		translate([0, 0, -605])
-		#cylinder(d = mainRod_dia, h=mainRod_dia + 600);
-translate([0, 0, 25])
-rearAxis();
+	translate([0, 0, -605])
+	#cylinder(d = mainRod_dia, h=mainRod_dia + 600);
+	translate([0, 0, 0])
+	rearAxis();
 }
+
+translate([-90, -25, -100])
+axleJoint();
+
+mirror()
+translate([-90, -25, -100])
+axleJoint();
+
 translate([0, 280, 100])
 seat();
 
-translate([0, 650, -83])
+translate([0, 630, -88])
 rotate([0,-15,90])
-frontHub(); */
-rearHub();
+frontHub();
