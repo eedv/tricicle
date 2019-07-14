@@ -39,6 +39,33 @@ module axleJoint() {
 	}
 
 }
+module sphericalRearHub() {
+	rotate([-90, 0, 0])
+	difference() {
+		$fn=96;
+		sphere(45);
+		translate([0, 0, -20])
+		rotate([15, 0, 0])
+		cylinder(d=45, h=200);
+		translate([0, -13, 0])
+		rotate([0, 90, 45])
+		cylinder(d=22.6, h=200);
+		mirror()
+		translate([0, -13, 0])
+		rotate([0, 90, 45])
+		cylinder(d=22.6, h=200);
+	};
+	rotate([-90, 0, 0]) {
+		#translate([0, -13, 0])
+		rotate([0, 95, 45])
+		cylinder(d=22.6, h=200);
+		#mirror()
+		translate([0, -13, 0])
+		rotate([0, 95, 45])
+		cylinder(d=22.6, h=200);
+	}
+
+}
 module rearHub() {
 	rotate([15, 0, 0])
 	difference() {
