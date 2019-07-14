@@ -70,9 +70,12 @@ module rearHub() {
 	rotate([15, 0, 0])
 	difference() {
 		union() {
-			cylinder(d=mainRod_dia + 20, h=mainRod_dia + 10, $fn=128);
+			translate([0, 0, 14.2]) {
+				cylinder(d=mainRod_dia + 20, h=mainRod_dia - 10, $fn=64);
+				sphere(r=(mainRod_dia + 20) / 2, , $fn=64);
+			}
 
-			$fn=80;
+			$fn=64;
 			rotate([80, 0, 45])
 			translate([0, 22.5, 23])
 			difference() {
